@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "site" {
-  bucket = "stanley-cloud-site-1937" # CHANGE THIS (must be unique)
+  bucket = "stanley-cloud-site-19377" # CHANGE THIS (must be unique)
 }
 
 resource "aws_s3_bucket_website_configuration" "site_config" {
