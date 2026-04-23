@@ -2,13 +2,12 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "website" {
-  bucket = "stanley-cloud-portfolio-site"
-
+resource "aws_s3_bucket" "site" {
+  bucket = "stanley-cloud-site-123456" # CHANGE THIS (must be unique)
 }
 
-resource "aws_s3_bucket_website_configuration" "website_config" {
-  bucket = aws_s3_bucket.website.id
+resource "aws_s3_bucket_website_configuration" "site_config" {
+  bucket = aws_s3_bucket.site.id
 
   index_document {
     suffix = "index.html"
@@ -16,10 +15,24 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
 }
 
 resource "aws_s3_bucket_public_access_block" "public_access" {
-  bucket = aws_s3_bucket.website.id
+  bucket = aws_s3_bucket.site.id
 
   block_public_acls   = false
   block_public_policy = false
   ignore_public_acls  = false
   restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "public_policy" {
+  bucket = aws_s3_bucket.site.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = "*"
+      Action = "s3:GetObject"
+      Resource = "${aws_s3_bucket.site.arn}/*"
+    }]
+  })
 }

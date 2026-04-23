@@ -30,3 +30,6 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: terraform
+      - name: Upload website files to S3
+        run: |
+          aws s3 sync website/ s3://stanley-cloud-site-123456
