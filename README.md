@@ -26,5 +26,5 @@ Tech Stack
 
 Author
 
-Stanley Kanzara
-retry deployment
+Stanley jnr T Kanzara
+
